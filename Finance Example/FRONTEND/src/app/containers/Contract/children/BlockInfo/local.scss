@@ -1,0 +1,36 @@
+
+
+
+.blockdisplayblack{
+  display: inline-block;
+  width: 100%;
+  margin-top: 2%;
+  margin-left: 2%;
+  height: 20vh;
+  background-color: #030301;
+  opacity: 0.7;
+  -webkit-clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%, 0 15%);
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%, 0 15%);
+}
+
+
+.blockdisplaygreen{
+  display: inline-block;
+  width: 95%;
+  margin-left:10%;
+  height: 20vh;
+  background-color: #73ba9b;
+  background-color: #73ba9b;
+  -webkit-clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%, 0 15%);
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%, 0 15%);
+}
+
+.blockdisplayred{
+  display: inline-block;
+  width: 95%;
+  margin-left:10%;
+  height: 20vh;
+  background-color: #ba2d0b;
+  -webkit-clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%, 0 15%);
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%, 0 15%);
+}

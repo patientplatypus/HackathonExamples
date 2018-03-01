@@ -1,0 +1,27 @@
+
+
+.blockdisplayblack2{
+  display: inline-block;
+  width: 90%;
+  margin-left: 0.05%;
+  margin-left: 0.05%;
+  margin-top: 2%;
+  height: 100%;
+  background-color: #030301;
+  opacity: 0.7;
+  -webkit-clip-path: polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0 85%, 0 15%);
+  clip-path: polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 100% 100%, 0% 100%, 0 85%, 0 15%);
+}
+
+
+.blockdisplayorange2{
+  display: inline-block;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 30vh;
+  background-color: #F39C12;
+  opacity: 1;
+  -webkit-clip-path: polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0 85%, 0 15%);
+  clip-path: polygon(15% 0, 85% 0, 100% 15%, 100% 85%, 100% 100%, 0% 100%, 0 85%, 0 15%);
+}

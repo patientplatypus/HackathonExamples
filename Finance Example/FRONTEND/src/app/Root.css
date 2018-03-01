@@ -1,0 +1,16 @@
+.thunderstorm{
+  font-family: "Conv_Exo2-ExtraBoldCondensed";
+}
+
+
+.main{
+  /*color: white;*/
+  height: 5vh;
+  margin: 0;
+  padding: 0;
+}
+
+.overflowSaver{
+  overflow: hidden;
+  overflow-y: hidden;
+}

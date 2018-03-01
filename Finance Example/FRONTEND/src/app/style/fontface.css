@@ -1,0 +1,7 @@
+@font-face {
+	font-family: 'Conv_Exo2-ExtraBoldCondensed';
+	src: url('fonts/Exo2-ExtraBoldCondensed.eot');
+	src: local('☺'), url('fonts/Exo2-ExtraBoldCondensed.woff') format('woff'), url('fonts/Exo2-ExtraBoldCondensed.ttf') format('truetype'), url('fonts/Exo2-ExtraBoldCondensed.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

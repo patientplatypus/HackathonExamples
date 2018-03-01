@@ -1,0 +1,7 @@
+{
+  "runtime": {
+    "majorVersion": "1.8.3"
+  },
+	"command": "./start.sh",
+    "notes": "Go Backend For Financial Blockchain Example"
+}

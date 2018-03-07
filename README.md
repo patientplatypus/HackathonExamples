@@ -22,217 +22,177 @@ CHAINCODEVER=
 --------
 ![alt text](./DeploymentPics/Screenshot102.png)
 - Navigate to *http://your-ip-address:3000/provision.html* to gain access to the GUI. The ip address should be provided to you from a proctor.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot103.png)
 - Click *Create Block Chain Network*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot104.png)
 - Fill in the network as show. The ip address should be the same as the one in the address bar. We will need **REST PROXY PORT** so make a note of it. When we go to connect our backend this will be the **DOCTOR_PORT** in the `.env` file. The ip address will be the **BLOCKCHAIN** field in our environment file.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot105.png)
 - Click apply and then ok at the prompt.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot106.png)
 - We are going to want to manage the doctor network, so when it shows in the sidebar on the left, click it. It will prompt you; hit ok and it will pop the network in another tab.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot107.png)
 - Now click *Create Block Chain Organization*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot108.png)
 - Fill it out as shown. Again the ip address is the ip address in the address bar. Make a note of the **REST PROXY PORT** as this will now be our **PHARMACIST_PORT** in our backend `.env` file.
---------
+
 
 --------
 ![alt text](./DeploymentPics/Screenshot109.png)
 - Click ok at the prompt after hitting apply.
---------
+
 
 --------
 ![alt text](./DeploymentPics/Screenshot110.png)
 - From the sidebar click pharmacist to pop the network in another tab, clicking here on the prompt.
---------
+
 
 --------
 ![alt text](./DeploymentPics/Screenshot113.png)
 - Inside the pharmacist tab click the drop down and *Export Certificate*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot116.png)
 - Inside the doctor tab we are going to navigate to the *Network Tab* and click the blue *Add Organization* button. In the field select *pharmacist* and upload the certificate you just downloaded. This allows the doctor network to know that the pharmacist network is cool with connecting.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot117.png)
 - You should see the pharmacist as a field in your network now. Click the hamburger menu to the far right of the doctor *Organization ID* and click *Download Admin Credentials*. We are doing the same thing for the doctor as we just did for the pharmacist - getting the credentials to send to the pharmacist, but with the doctor being the administrator node of the network.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot118.png)
 - Go back to the pharmacist tab.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot119.png)
 - Navigate to the network tab.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot120.png)
 - Click the *Import Orderer Settings* button and upload the credentials file that we just downloaded.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot121.png)
 - Now navigate to nodes.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot122.png)
 - Click *Export/Import* and then *Export*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot123.png)
 - Export the two peer nodes. Now that the two networks have each others credentials, we are exporting the pharmacists nodes to the master node of the doctor.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot124.png)
 - Go to the nodes section in the doctor window tab.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot125.png)
 - Click *Export/Import* and then *Import*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot126.png)
 - Import the nodes that were exported by the pharmacist.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot127.png)
 - You should now see a pharmacist node appearing in the doctor node window pane!
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot128.png)
 - Go to channels.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot129.png)
 - Create a channel name that the doctor and pharmacist will communicate over. Make a note of this name as it will exist in **CHANNEL** in our `.env` file.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot131.png)
 - Navigate to the pharmacist window pane and then nodes.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot132.png)
 - Click the hamburger menu of *peer0.pharmacist.com* and then *Edit* to bring you to this window.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot134.png)
 - Click joined channels.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot135.png)
 - Join the channel you just made in doctor!
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot136.png)
 - Go to channels tab.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot137.png)
 - If you click the ledger item for the channel you made you can see where the common ledger is across all the peers. **WHEN PEOPLE TALK ABOUT A DISTRIBUTED LEDGER THIS IS THAT LEDGER GETTING ALL DISTRIBUTED AND STUFF**. This is the area where you can see new items getting populated to chaincode when you push entries from the backend of your REST service.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot138.png)
 - Here is the joined peers tab where you can see that the doctor peer has joined. If it hasn't already been set, you need to set the doctor peer as the anchor peer, first by selecting the doctor peer and then clicking on *Set Anchor Peer*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot142.png)
 - In the pharmacist tab you need to go to *Channels*, and then *Joined Peers*. You need to make sure that the anchor peer is *peer0.pharmacist.com* if the menu is not already pre-populated.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot144.png)
 - In the doctor window pane go to *Chaincodes*.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot145.png)
 - Here is cool part where we upload our chaincode, the *golang* server logic that operates the blockchain. Later on if you want to deep dive into how chaincodes work you can learn *golang* and write your own, but we've made a simple one for this example. It exists in the *chaincode* folder at root of this directory if you want to check it out - that's the one we are now going to upload. We give our chaincode a name which we note to include in our `env` file as **CHAINCODENAME**, and as version we will just put down `v1` (this is **CHAINCODEVER** in our `env` file). Our targeted peers are *peer0.doctor.com* as it is our master node. We upload a zipped version of our `.go` chaincode file and then push the *install* button.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot147.png)
 - The chaincode name should appear in a menu in the *Chaincodes* tab, click it to get to this window. Click the hamburger menu to the right of the version number as shown and click *instantiate* from the drop down menu.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot148.png)
 - Format the resulting menu as shown. While before the chaincode had been installed on the network, this tells the network to take targetted peers and actually start running it.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot154.png)
 - Just as we did on the doctor network we need to go to the *Chaincodes* tab of the pharmacist window pane and install the chaincode, keeping the same name, version number, and uploaded file.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot159.png)
 - Now go to the doctor window pane and the *Nodes* tab. Click to edit the *Rest proxy gateway* as shown.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot160.png)
 - Make sure to expose the chaincode on the channel as shown.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot163.png)
 - Highlight the gateway we just edited and the click the third grey icon menu from the buttons above the table. Click ok to restart the gateway - this isn't always necessary, but is sometimes to have the changes take effect.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot167.png)
 - Go to the pharmacist window pane and edit it's gateway similarly.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot168.png)
 - What the menu should look like.
---------
 
 --------
 ![alt text](./DeploymentPics/Screenshot171.png)
 - And similarly restart.
---------
 
 # *Important Last Step*
 - We need to link our blockchain network credentials with our backend service, so the two can pass information.

@@ -7,6 +7,11 @@
 - We have a similar need for an indisputable ledger in finance. In this program I take real time stock data and add it to a blockchain ledger to simulate how a stock exchange might secure its transactions. However the security of transactions in finance generally is hugely important, so this use case can be generalized from everything from options trading to asset backed securities such as mortgages. I then allow a user to "buy" or "sell" stock and add these transactions to the blockchain, only allowing a sale if the user attempts to sell below the exchange price or allow a purchase if the user attempts to buy over the exchange price.
 * **Major Caveat!**  The api service I use, *AlphaVantage*, is a real time streaming service that offers free stock market quotes for developers (free stock services are hard to find generally, which is why it is the service we use). It is sometimes under heavy load and, since it is a free service, they're site is not always available because servers are expensive. Because of this, the site may not be available to use at all times! For this reason we are not going to be demoing this application live, but feel free to try it on your own. Visit https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=demo to see if the API endpoint the program calls is active. If you get a JSON return, it's good to go!
 
+# 🙃 Now the fun part 🎉 *Oracle BlockChain* ⛓🔥
+
+![alt text](./DeploymentPics/Screenshot (102).png)
+
+
 # Running Program Locally and Pushing to Application Contain Cloud Service
 - To walkthrough the requirements to start these programs and push the backend code to Oracle Application Container Cloud Services please continue reading. We will be following along with testing and uploading the healthcare application, but the finance application is available to experiment with on your own.
 
@@ -60,8 +65,3 @@
 
 
 - More documentation here: (http://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/apaas/go/getting-started-go-accs/getting-started-go-accs.html)
-
-
-# 🙃 Now the fun part 🎉 *Oracle BlockChain* ⛓🔥
-
-![alt text]("./DeploymentPics/Screenshot (102).png")

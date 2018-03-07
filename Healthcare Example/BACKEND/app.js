@@ -1,18 +1,58 @@
+require('dotenv').config()
 
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+
 const port = process.env.PORT || 8080;
+
+if(!process.env.BLOCKCHAIN){
+    console.log("BLOCKCHAIN is not defined in .env file");
+    process.exit(1);
+}
+const blockchainURL = process.env.BLOCKCHAIN
+
+if(!process.env.DOCTOR_PORT){
+    console.log("DOCTOR_PORT is not defined in .env file");
+    process.exit(1);
+} 
+const doctorPort = process.env.DOCTOR_PORT
+
+if(!process.env.PHARMACIST_PORT){
+    console.log("PHARMACIST_PORT is not defined in .env file");
+    process.exit(1);
+}
+const pharmacistPort = process.env.PHARMACIST_PORT
+
+if(!process.env.CHANNEL){
+    console.log("CHANNEL is not defined in .env file");
+    process.exit(1);
+}
+const CHANNEL = process.env.CHANNEL
+
+if(!process.env.CHAINCODENAME){
+    console.log("CHAINCODENAME is not defined in .env file");
+    process.exit(1);
+}
+const CHAINCODENAME = process.env.CHAINCODENAME
+
+if(!process.env.CHAINCODEVER){
+    console.log("CHAINCODEVER is not defined in .env file");
+    process.exit(1);
+}
+const CHAINCODEVER = process.env.CHAINCODEVER
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 var blockchainstatus = true;
-const bcsQueryURL = 'http://';
-const bcsInvokeURL= 'http://';
+
 var RXint = 3;
 var rxlog = [];
+
 var persons = [
     {
         ID: "001",
@@ -33,6 +73,7 @@ var persons = [
         Phone: "123-123-1234"
     }
 ];
+
 var rx = [
     {
         RXID: "RX001",
@@ -146,29 +187,23 @@ app.post('/rx/:ID', function(req, res){
             TimeStamp: Timestamp
         });
 
+        axios.post(blockchainURL+":"+doctorPort+'/bcsgw/rest/v1/transaction/invocation',{
+            "channel": CHANNEL,
+            "chaincode": CHAINCODENAME,
+            "chaincodeVer": CHAINCODEVER,
+            "method": "insertObject",
+            "args": [RXID, patientID, FirstName, LastName, Timestamp, Doctor, Prescription, Refills, Status]
+        })
+        .then(function(r){
+            console.log("response ok");
+            console.log("response", r.data);
+            res.send({response: "ok"});
+        })
+        .catch(function (err){
+            res.send({response: "not ok"});
+            console.log(err);
+        });
 
-        // Go to next Doc in Folder
-//        axios.post('http://129.146.106.151:4002/bcsgw/rest/v1/transaction/invocation', {
-//            "channel": "doctorpharmacist",
-//            "chaincode": "file-trace",
-//            "chaincodeVer": "v1",
-//            "method": "newDocument",
-//            "args": [RXID, patientID, FirstName, LastName, Timestamp, Doctor, Prescription, Refills, Status]
-//           })
-//           .then(function (r) {
-//               console.log("response ok");
-//               console.log("response", r.data);
-//               res.send({response: "ok"});
-//            })
-//            .catch( function (err){
-//                res.send({response: "not ok"});
-//                console.log(err);
-//            });
-
-        //console.log("Post Req: ", JSON.stringify(req.params));
-        //console.log("Post Req:", JSON.stringify(req.body));
-        //console.log("RX", rx);
-        res.send({response: "ok"});
     
 });
 
@@ -176,7 +211,8 @@ app.patch('/rx/:ID', function(req, res){
     const patientID = req.params.ID;
     const RXID = req.body.RXID; 
     const Status = req.body.Status;
-    const TimeStamp = req.body.TimeStamp;
+    const TimeStamp = Date.now();
+	console.log(TimeStamp);
     var args = [];
     rx = rx.map((r)=>{
         if(r.RXID == RXID){
@@ -188,7 +224,7 @@ app.patch('/rx/:ID', function(req, res){
             args.push(r.ID);
             args.push(r.FirstName);
             args.push(r.LastName);
-            args.push(r.TimeStamp);
+            args.push(TimeStamp);
             args.push(r.Doctor);
             args.push(r.Prescription);
             args.push(r.Refills.toString());
@@ -209,21 +245,21 @@ app.patch('/rx/:ID', function(req, res){
         Status: Status,
         TimeStamp: TimeStamp
     });
-    console.log(args);
-//    axios.post('http://129.146.106.151:4002/bcsgw/rest/v1/transaction/invocation', {
-//            "channel": "doctorpharmacist",
-//            "chaincode": "file-trace",
-//            "chaincodeVer": "v1",
-//            "method": "modifyDocument",
-//            "args": args
-//           }).then((response) => {
-//               console.log(response.data);
-//            //res.send({response: "ok"});
-//            }).catch( (err) => {
-//                //res.send({response: "not ok"});
-//                console.log(err);
-//            });
-    res.send({response: "ok"});
+    axios.post(blockchainURL+":"+pharmacistPort+'/bcsgw/rest/v1/transaction/invocation', {
+        "channel": CHANNEL,
+        "chaincode": CHAINCODENAME,
+        "chaincodeVer": CHAINCODEVER,
+        "method":"modifyObject",
+        "args": args
+    })
+    .then( (response) => {
+        console.log(response.data);
+        res.send({response: "ok"});
+    })
+    .catch( (err) => {
+        res.send({response: "not ok"});
+        console.log(err.response.data);
+    });
 });
 
 

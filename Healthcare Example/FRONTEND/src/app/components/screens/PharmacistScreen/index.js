@@ -76,7 +76,8 @@ class Pharmacist extends Component {
       selectedFirstName: null,
       selectedLastName: null,
       displaygetpatientwarning: false,
-      rxinfo: []
+      rxinfo: [],
+      pillPrescribedArray: []
     }
   }
 
@@ -220,12 +221,19 @@ class Pharmacist extends Component {
               </Flex1>
               <Flex1>
                 <div key={i}>
-                  {renderIf(pill.Status==="prescribed")(
-                    <Button type="secondary" size="large" onClick={()=>this.handleFillScript(pill.ID, pill.RXID)}>
+                  {renderIf(pill.Status==="prescribed"&&!this.state.pillPrescribedArray.includes(i))(
+                    <Button type="secondary" size="large" onClick={()=>{
+                      this.handleFillScript(pill.ID, pill.RXID);
+                      var temparray = this.state.pillPrescribedArray;
+                      temparray.push(i)
+                      this.setState({
+                        pillPrescribedArray: temparray
+                      })
+                    }}>
                       Click to Fill
                     </Button>
                   )}
-                  {renderIf(pill.Status!="prescribed")(
+                  {renderIf(pill.Status!="prescribed"||this.state.pillPrescribedArray.includes(i))(
                     <div>
                       Already Filled
                     </div>

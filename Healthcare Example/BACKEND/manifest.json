@@ -1,8 +1,9 @@
 {
-  "runtime":{
-    "majorVersion":"6"
-  },
-  "command": "npm start",
-  "release": {},
-  "notes": "Example Application"
+	"runtime":{
+		"majorVersion": "6"
+	},
+	"command": "node app.js",
+	"release": {},
+	"notes": "backend application"
 }
+

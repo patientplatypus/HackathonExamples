@@ -83,6 +83,10 @@
 ![alt text](./DeploymentPics/Screenshot173.png)
 
 
+# *Important Last Step*
+- We need to link our blockchain network credentials with our backend service, so the two can pass information.
+- We have an environment file `.env` located at `/Healthcare Example/BACKEND/.env`. There are currently empty credentials in there, as you should never put your server credentials on a public github repository.
+
 
 # Running Program Locally and Pushing to Application Contain Cloud Service
 - To walkthrough the requirements to start these programs and push the backend code to Oracle Application Container Cloud Services please continue reading. We will be following along with testing and uploading the healthcare application, but the finance application is available to experiment with on your own.
